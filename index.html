@@ -64,10 +64,84 @@
     </a>
   </nav>
 
+  <h2 class="section-title">Conheça os Cumbuquers</h2>
+
+  <!-- Bolhas dos integrantes — layout tipo "bubble chart" (referência: gráfico de bolhas
+       empacotadas). Posições/tamanhos em % fixos no CSS (--top/--left/--size de cada
+       .bubble), mas a ORDEM de quem fica em qual bolha e os atrasos de animação são
+       sorteados via JS a cada carregamento (ver <script> no fim da página) — é isso que
+       faz "abrir aleatório" e cada bolha flutuar fora de sincronia com as outras.
+       Pra adicionar/trocar integrante: editar o array CUMBUQUERS no <script>, e ver
+       CLAUDE.md desta pasta pra como baixar a foto de perfil do Instagram da pessoa. -->
+  <div class="cumbuquers" id="cumbuquers"></div>
+
   <footer class="footer">
     <p>Cumbuca Criativa</p>
   </footer>
 
 </div>
+
+<script>
+// Integrantes da Cumbuca — pra adicionar/remover alguém, só mexer nessa lista.
+// "photo" aponta pra assets/img/cumbuquers/<arquivo>.jpg (ver CLAUDE.md pra baixar a foto).
+const CUMBUQUERS = [
+  { name: 'Kewin', url: 'https://www.instagram.com/outrokewin/', photo: 'assets/img/cumbuquers/outrokewin.jpg' },
+  { name: 'Kim', url: 'https://www.instagram.com/kim_pertile/', photo: 'assets/img/cumbuquers/kim_pertile.jpg' },
+  { name: 'Mary', url: 'https://www.instagram.com/mary.piconi/', photo: 'assets/img/cumbuquers/mary_piconi.jpg' },
+  { name: 'Sally', url: 'https://www.instagram.com/_sally_ss/', photo: 'assets/img/cumbuquers/sally_ss.jpg' },
+  { name: 'Maiara', url: 'https://www.instagram.com/maiaraoliveira.art/', photo: 'assets/img/cumbuquers/maiaraoliveira.jpg' },
+  { name: 'Gabriel', url: 'https://www.instagram.com/mrgaarcia/', photo: 'assets/img/cumbuquers/mrgaarcia.jpg' },
+];
+
+// Posições/tamanhos das bolhas (em % do container quadrado), desenhadas à mão pra
+// imitar o visual de "bubble chart" empacotado — não são geradas, são um layout fixo.
+const BUBBLE_SLOTS = [
+  { size: 42, top: 6, left: 29 },
+  { size: 29, top: 0, left: 68 },
+  { size: 27, top: 21, left: 0 },
+  { size: 29, top: 40, left: 66 },
+  { size: 25, top: 58, left: 5 },
+  { size: 29, top: 62, left: 35 },
+];
+
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+const container = document.getElementById('cumbuquers');
+const shuffled = shuffle(CUMBUQUERS);
+shuffled.forEach((pessoa, i) => {
+  const slot = BUBBLE_SLOTS[i];
+  const a = document.createElement('a');
+  a.className = 'bubble';
+  a.href = pessoa.url;
+  a.target = '_blank';
+  a.rel = 'noopener';
+  a.setAttribute('aria-label', pessoa.name);
+  a.style.setProperty('--size', slot.size + '%');
+  a.style.setProperty('--top', slot.top + '%');
+  a.style.setProperty('--left', slot.left + '%');
+  a.style.setProperty('--pop-delay', (Math.random() * 0.7).toFixed(2) + 's');
+
+  const float = document.createElement('span');
+  float.className = 'bubble__float';
+  float.style.setProperty('--float-duration', (3.2 + Math.random() * 2.2).toFixed(2) + 's');
+  float.style.setProperty('--float-delay', (-Math.random() * 4).toFixed(2) + 's');
+
+  const img = document.createElement('img');
+  img.src = pessoa.photo;
+  img.alt = pessoa.name;
+  img.loading = 'lazy';
+
+  float.appendChild(img);
+  a.appendChild(float);
+  container.appendChild(a);
+});
+</script>
 </body>
 </html>

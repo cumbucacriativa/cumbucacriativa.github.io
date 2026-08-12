@@ -79,3 +79,36 @@ pra web). Sem ImageMagick/ffmpeg disponível neste ambiente — o redimensioname
 PowerShell (`System.Drawing`, `.NET`). Se precisar trocar a foto no futuro, repetir esse
 processo (ou usar as ferramentas de imagem da Adobe, que exigem a imagem já estar hospedada
 numa URL pra funcionar).
+
+### Seção "Conheça os Cumbuquers" (bolhas dos integrantes)
+
+Cada integrante é uma bolha circular com foto que linka pro Instagram da pessoa — layout tipo
+"bubble chart" empacotado (posições/tamanhos fixos em `BUBBLE_SLOTS` no `<script>` do
+`index.html`), com a ordem de quem cai em qual bolha sorteada a cada carregamento da página
+(dá a sensação de "abrir aleatório"), e cada bolha flutuando com duração/atraso de animação
+também sorteados (fica tudo fora de sincronia, não "respirando" junto).
+
+**Não dá pra puxar a foto de perfil do Instagram ao vivo (hotlink direto).** A URL que o
+Instagram serve pra foto de perfil é assinada e expira em ~1-2 dias (parâmetro `oe=` na query
+string é o timestamp de validade) — um `<img src>` apontando pra ela quebraria sozinho depois
+de pouco tempo, sem ninguém precisar trocar nada. Não existe API pública do Instagram pra isso
+sem autenticação por conta. Por isso as fotos ficam baixadas e versionadas em
+`assets/img/cumbuquers/`, mesmo padrão do resto do site.
+
+**Pra trocar a foto de alguém (ex: a pessoa atualizou o Instagram) ou adicionar/remover um
+integrante:**
+
+1. Abrir `https://www.instagram.com/<usuario>/` no navegador (funciona deslogado, mostra uma
+   prévia limitada do perfil incluindo a foto — não precisa de login).
+2. Pegar a URL da foto de perfil via JS no console/DevTools (ou via `javascript_tool` do
+   Claude Browser):
+   ```js
+   document.querySelector('img[alt*="Foto do perfil"]').src
+   ```
+3. Baixar com `curl -s -o assets/img/cumbuquers/<usuario>.jpg "<url copiada>"` (a URL já
+   funciona direto por `curl`, não precisa de autenticação nem de headers especiais).
+4. Se for gente nova: adicionar um objeto no array `CUMBUQUERS` do `<script>` em `index.html`
+   (name, url do Instagram, caminho da foto) **e** uma posição nova em `BUBBLE_SLOTS` (mesmo
+   array, por índice — desenhar a mão um `{ size, top, left }` em % que encaixe no cluster sem
+   ficar muito sobreposto às outras bolhas). Se for gente saindo: remover dos dois arrays.
+5. Publicar pelo processo de deploy acima (API do GitHub).
