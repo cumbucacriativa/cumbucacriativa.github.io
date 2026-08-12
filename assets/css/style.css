@@ -157,8 +157,73 @@ body {
   margin-top: .4em;
 }
 
+/* ============ Cumbuquers (bolhas dos integrantes) ============ */
+
+.section-title {
+  width: 100%;
+  margin: clamp(28px, 9vw, 38px) 0 clamp(14px, 4vw, 18px);
+  font-family: 'Libre Franklin', sans-serif;
+  font-weight: 800;
+  font-size: clamp(18px, 5.2vw, 22px);
+  text-align: center;
+}
+
+.cumbuquers {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  margin-bottom: clamp(8px, 2vw, 12px);
+}
+
+.bubble {
+  position: absolute;
+  top: var(--top);
+  left: var(--left);
+  width: var(--size);
+  aspect-ratio: 1;
+  opacity: 0;
+  animation: bubble-pop .55s cubic-bezier(.34, 1.56, .64, 1) forwards;
+  animation-delay: var(--pop-delay);
+}
+
+.bubble__float {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid var(--near-white);
+  box-shadow: 0 6px 16px rgba(35, 48, 45, .18);
+  animation: bubble-float var(--float-duration) ease-in-out infinite;
+  animation-delay: var(--float-delay);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+
+.bubble img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+@media (hover: hover) {
+  .bubble:hover .bubble__float {
+    transform: scale(1.08);
+    box-shadow: 0 10px 22px rgba(35, 48, 45, .26);
+  }
+}
+.bubble:active .bubble__float { transform: scale(.94); }
+
+@keyframes bubble-pop {
+  from { opacity: 0; transform: scale(.35); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes bubble-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%      { transform: translateY(-8%) rotate(3deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bubble { opacity: 1; animation: none; }
+  .bubble__float { animation: none; }
+}
+
 .footer {
-  margin-top: auto;
+  margin-top: clamp(24px, 8vw, 34px);
   padding-top: clamp(18px, 8vw, 34px);
   font-family: 'Roboto', sans-serif;
   font-size: clamp(11px, 3.2vw, 13px);
