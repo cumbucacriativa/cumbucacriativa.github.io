@@ -3,6 +3,7 @@
 /* Mesma paleta/tipografia do Joga na Cumbuca (assets/css/style.css de lá) —
    qualquer ajuste de marca deve ser espelhado nos dois lugares. */
 :root {
+  color-scheme: light;
   --bg: #FFF7E1;
   --dark: #23302D;
   --accent: #00FFAA;
