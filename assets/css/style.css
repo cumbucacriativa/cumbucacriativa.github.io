@@ -19,12 +19,16 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
+/* Todo espaçamento usa clamp(mínimo-mobile, %-do-viewport, valor-no-limite-de-430px) —
+   "vw" puro cresce com a tela inteira mesmo depois que .page para de crescer (max-width:
+   430px), o que sobrava um respiro gigante em telas largas e encolhia o conteúdo visível.
+   O clamp trava o valor assim que a tela passa de ~430px. */
 .page {
   width: 100%;
   max-width: 430px;
   margin: 0 auto;
   min-height: 100dvh;
-  padding: 7vw 6vw 8vw;
+  padding: clamp(20px, 7vw, 30px) clamp(18px, 6vw, 26px) clamp(24px, 8vw, 34px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -36,9 +40,9 @@ body {
   position: relative;
   width: 100%;
   aspect-ratio: 1 / 1;
-  border-radius: 6vw;
+  border-radius: clamp(18px, 6vw, 26px);
   overflow: hidden;
-  margin-bottom: 5vw;
+  margin-bottom: clamp(16px, 5vw, 22px);
   background: var(--dark);
 }
 .hero__photo {
@@ -64,27 +68,27 @@ body {
 
 .social-row {
   display: flex;
-  gap: 6vw;
-  margin-bottom: 6vw;
+  gap: clamp(18px, 6vw, 26px);
+  margin-bottom: clamp(18px, 6vw, 26px);
 }
 .social-row a { display: block; line-height: 0; }
-.social-row img { width: 6.2vw; min-width: 24px; }
+.social-row img { width: clamp(22px, 6.2vw, 27px); }
 
 .links {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 3.2vw;
+  gap: clamp(10px, 3.2vw, 14px);
 }
 
 .link-btn {
   display: flex;
   align-items: center;
-  gap: 3.2vw;
+  gap: clamp(10px, 3.2vw, 14px);
   width: 100%;
-  min-height: 15vw;
-  padding: 2.6vw 4vw;
-  border-radius: 4.5vw;
+  min-height: clamp(50px, 15vw, 65px);
+  padding: clamp(9px, 2.6vw, 11px) clamp(14px, 4vw, 17px);
+  border-radius: clamp(16px, 4.5vw, 19px);
   background: var(--dark);
   color: var(--near-white);
   text-decoration: none;
@@ -95,8 +99,7 @@ body {
 
 .link-btn__avatar {
   flex: none;
-  width: 11vw;
-  min-width: 42px;
+  width: clamp(38px, 11vw, 47px);
   aspect-ratio: 1;
   border-radius: 50%;
   background: var(--near-white);
@@ -112,7 +115,7 @@ body {
 .link-btn__text {
   font-family: 'Libre Franklin', sans-serif;
   font-weight: 700;
-  font-size: 4vw;
+  font-size: clamp(15px, 4vw, 17px);
   letter-spacing: .01em;
   line-height: 1.25;
 }
@@ -121,28 +124,18 @@ body {
   display: block;
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
-  font-size: 3vw;
+  font-size: clamp(11px, 3vw, 13px);
   letter-spacing: normal;
   opacity: .7;
-  margin-top: .6vw;
+  margin-top: .4em;
 }
 
 .footer {
   margin-top: auto;
-  padding-top: 8vw;
+  padding-top: clamp(18px, 8vw, 34px);
   font-family: 'Roboto', sans-serif;
-  font-size: 3.2vw;
+  font-size: clamp(11px, 3.2vw, 13px);
   opacity: .5;
   text-align: center;
 }
 .footer p { margin: 0; }
-
-/* Telas maiores (tablet/desktop): trava os tamanhos em vw pra não ficarem enormes */
-@media (min-width: 430px) {
-  .social-row img { width: 24px; }
-  .link-btn { font-size: 17px; min-height: 62px; padding: 12px 18px; gap: 14px; }
-  .link-btn__avatar { width: 44px; }
-  .link-btn__text { font-size: 17px; }
-  .link-btn__sub { font-size: 13px; }
-  .footer { font-size: 13px; }
-}
