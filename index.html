@@ -93,15 +93,15 @@ const CUMBUQUERS = [
   { name: 'Gabriel', url: 'https://www.instagram.com/mrgaarcia/', photo: 'assets/img/cumbuquers/mrgaarcia.jpg' },
 ];
 
-// Posições/tamanhos das bolhas (em % do container quadrado), desenhadas à mão pra
-// imitar o visual de "bubble chart" empacotado — não são geradas, são um layout fixo.
+// Posições das bolhas (em % do container), todas do mesmo tamanho e bem próximas —
+// duas fileiras de 3, com um leve zigue-zague pra não ficar um grid robótico.
 const BUBBLE_SLOTS = [
-  { size: 42, top: 6, left: 29 },
-  { size: 29, top: 0, left: 68 },
-  { size: 27, top: 21, left: 0 },
-  { size: 29, top: 40, left: 66 },
-  { size: 25, top: 58, left: 5 },
-  { size: 29, top: 62, left: 35 },
+  { size: 31, top: 1, left: 3 },
+  { size: 31, top: 0, left: 35 },
+  { size: 31, top: 3, left: 67 },
+  { size: 31, top: 35, left: 0 },
+  { size: 31, top: 34, left: 33 },
+  { size: 31, top: 36, left: 66 },
 ];
 
 function shuffle(arr) {
