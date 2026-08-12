@@ -171,7 +171,7 @@ body {
 .cumbuquers {
   position: relative;
   width: 100%;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 1 / .72;
   margin-bottom: clamp(8px, 2vw, 12px);
 }
 
@@ -192,7 +192,7 @@ body {
   height: 100%;
   border-radius: 50%;
   overflow: hidden;
-  border: 3px solid var(--near-white);
+  border: 3px solid var(--accent);
   box-shadow: 0 6px 16px rgba(35, 48, 45, .18);
   animation: bubble-float var(--float-duration) ease-in-out infinite;
   animation-delay: var(--float-delay);
