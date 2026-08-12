@@ -52,9 +52,9 @@ body {
 .hero__logo {
   position: absolute;
   left: 50%;
-  bottom: 6%;
+  bottom: 7%;
   transform: translateX(-50%);
-  width: 46%;
+  width: 74%;
 }
 
 .social-row {
